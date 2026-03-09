@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kevin Roldán | CV</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#121a33;
+      --glass:rgba(255,255,255,.12);
+      --glass-strong:rgba(255,255,255,.18);
+      --border:rgba(255,255,255,.18);
+      --text:#eef2ff;
+      --muted:rgba(255,255,255,.68);
+      --accent:#8b5cf6;
+      --accent2:#38bdf8;
+      --success:#22c55e;
+      --shadow:0 20px 60px rgba(0,0,0,.35);
+      --radius:28px;
+    }
+
+    *{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 20% 20%, rgba(139,92,246,.26), transparent 24%),
+        radial-gradient(circle at 80% 15%, rgba(56,189,248,.20), transparent 24%),
+        radial-gradient(circle at 50% 80%, rgba(255,255,255,.08), transparent 20%),
+        linear-gradient(160deg, var(--bg1), var(--bg2) 40%, #0f172a 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    .noise::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      opacity:.08;
+      background-image:
+        radial-gradient(rgba(255,255,255,.4) 0.5px, transparent 0.5px);
+      background-size: 8px 8px;
+      mix-blend-mode: soft-light;
+    }
+
+    .glass{
+      background:linear-gradient(180deg, rgba(255,255,255,.14), rgba(255,255,255,.08));
+      backdrop-filter: blur(18px) saturate(180%);
+      -webkit-backdrop-filter: blur(18px) saturate(180%);
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
+    }
+
+    .glass-soft{
+      background:linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.06));
+      backdrop-filter: blur(16px) saturate(160%);
+      -webkit-backdrop-filter: blur(16px) saturate(160%);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .liquid-shine{
+      position:relative;
+      overflow:hidden;
+    }
+    .liquid-shine::after{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      background:linear-gradient(
+        110deg,
+        transparent 35%,
+        rgba(255,255,255,.16) 46%,
+        transparent 57%
+      );
+      transform:translateX(-60%) rotate(8deg);
+      animation:shine 7s linear infinite;
+    }
+
+    @keyframes shine{
+      0%{transform:translateX(-80%) rotate(8deg)}
+      100%{transform:translateX(120%) rotate(8deg)}
+    }
+
+    .floaty{
+      animation: floaty 6s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%,100%{transform:translateY(0)}
+      50%{transform:translateY(-8px)}
+    }
+
+    .fade-up{
+      opacity:0;
+      transform:translateY(24px);
+      transition:all .8s ease;
+    }
+    .fade-up.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    .section{display:none}
+    .section.active{display:block}
+
+    .hero-image{
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.03)),
+        url('kevin-photo.jpg') center/cover no-repeat,
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 30%),
+        linear-gradient(135deg, rgba(139,92,246,.5), rgba(56,189,248,.35));
+    }
+
+    .hero-image.no-photo{
+      background:
+        radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 30%),
+        radial-gradient(circle at 70% 30%, rgba(56,189,248,.25), transparent 25%),
+        linear-gradient(135deg, rgba(139,92,246,.55), rgba(56,189,248,.42));
+    }
+
+    .skill-fill{
+      width:0;
+      transition:width 1.6s cubic-bezier(.2,.8,.2,1);
+    }
+
+    .nav-pill.active{
+      background:rgba(255,255,255,.18);
+      border-color:rgba(255,255,255,.28);
+      color:white;
+      transform:translateY(-2px);
+    }
+
+    .bottom-tab.active{
+      color:white;
+      background:rgba(255,255,255,.14);
+    }
+
+    .timeline-line{
+      position:absolute;
+      left:16px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background:linear-gradient(to bottom, rgba(255,255,255,.1), rgba(255,255,255,.5), rgba(255,255,255,.1));
+    }
+
+    .premium-ring{
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,.10),
+        0 0 0 8px rgba(255,255,255,.04),
+        0 30px 80px rgba(0,0,0,.30);
+    }
+
+    .blur-orb{
+      position:fixed;
+      border-radius:999px;
+      filter:blur(60px);
+      opacity:.35;
+      pointer-events:none;
+      z-index:0;
+    }
+
+    .orb-1{
+      width:240px;height:240px;left:-40px;top:80px;
+      background:rgba(139,92,246,.45);
+      animation:orbMove1 11s ease-in-out infinite alternate;
+    }
+
+    .orb-2{
+      width:280px;height:280px;right:-60px;top:220px;
+      background:rgba(56,189,248,.35);
+      animation:orbMove2 12s ease-in-out infinite alternate;
+    }
+
+    @keyframes orbMove1{
+      from{transform:translate(0,0)}
+      to{transform:translate(60px,40px)}
+    }
+    @keyframes orbMove2{
+      from{transform:translate(0,0)}
+      to{transform:translate(-70px,30px)}
+    }
+
+    .app-shell{
+      position:relative;
+      z-index:1;
+      padding-bottom:100px;
+    }
+
+    .qr-box canvas,
+    .qr-box img{
+      margin:auto;
+      border-radius:18px;
+      background:white;
+      padding:10px;
+    }
+
+    @media (min-width: 1024px){
+      .mobile-bottom-nav{
+        left:50%;
+        transform:translateX(-50%);
+        width:auto;
+        min-width:680px;
+      }
+    }
+  </style>
+</head>
+
+<body class="noise">
+  <div class="blur-orb orb-1"></div>
+  <div class="blur-orb orb-2"></div>
+
+  <div class="app-shell max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
+
+    <!-- TOP BAR -->
+    <header class="glass rounded-[30px] p-4 sm:p-5 mb-6 liquid-shine">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.3em] text-white/60">CV interactivo</p>
+          <h1 class="text-2xl sm:text-3xl font-semibold">Kevin Roldán</h1>
+          <p class="text-white/70 mt-1">Experto en Comunicación Estratégica</p>
+        </div>
+
+        <div class="hidden md:flex items-center gap-3 text-sm text-white/80">
+          <span class="glass-soft rounded-full px-4 py-2 flex items-center gap-2">
+            <i data-lucide="mail" class="w-4 h-4"></i>
+            kevin.roldan.rodriguez@gmail.com
+          </span>
+          <span class="glass-soft rounded-full px-4 py-2 flex items-center gap-2">
+            <i data-lucide="phone" class="w-4 h-4"></i>
+            627 209 050
+          </span>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="grid lg:grid-cols-[1.05fr_.95fr] gap-6 mb-6">
+      <div class="glass rounded-[34px] overflow-hidden premium-ring fade-up">
+        <div id="heroPhoto" class="hero-image no-photo min-h-[460px] sm:min-h-[540px] relative">
+          <div class="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-white/10"></div>
+
+          <div class="absolute top-5 left-5 right-5 flex items-start justify-between gap-3">
+            <div class="glass-soft rounded-2xl px-4 py-3 max-w-xs">
+              <p class="text-xs uppercase tracking-[0.25em] text-white/70">Perfil premium</p>
+              <p class="text-sm text-white/90 mt-1">Comunicación, marketing, identidad corporativa y transformación digital.</p>
+            </div>
+            <div class="glass-soft rounded-2xl px-4 py-3 text-right floaty">
+              <p class="text-xs text-white/60">Disponible para</p>
+              <p class="font-medium">Comunicación · Branding · Digital</p>
+            </div>
+          </div>
+
+          <div class="absolute bottom-0 left-0 right-0 p-6 sm:p-8">
+            <div class="max-w-2xl">
+              <p class="text-white/70 text-sm mb-2">Estrategia · RRSS · Contenido · Analítica · IA</p>
+              <h2 class="text-4xl sm:text-5xl font-semibold leading-tight">
+                Comunicación con visión creativa y foco en resultados
+              </h2>
+              <p class="mt-4 text-white/80 text-base sm:text-lg max-w-xl">
+                He trabajado creando redes de comunicación eficientes, fortaleciendo identidad compartida y digitalizando procesos internos y externos.
+              </p>
+
+              <div class="flex flex-wrap gap-3 mt-6">
+                <button onclick="showSection('experiencia')" class="nav-go glass-soft px-5 py-3 rounded-2xl hover:bg-white/20 transition flex items-center gap-2">
+                  <i data-lucide="briefcase" class="w-4 h-4"></i>
+                  Ver experiencia
+                </button>
+                <button onclick="showSection('contacto')" class="nav-go glass-soft px-5 py-3 rounded-2xl hover:bg-white/20 transition flex items-center gap-2">
+                  <i data-lucide="send" class="w-4 h-4"></i>
+                  Contactar
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-col gap-6">
+        <!-- SOBRE MI -->
+        <section class="glass rounded-[30px] p-6 fade-up section-card" id="sobre-card">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+              <i data-lucide="sparkles" class="w-6 h-6"></i>
+            </div>
+            <div>
+              <p class="text-white/60 text-sm">Sobre mí</p>
+              <h3 class="text-xl font-semibold">Perfil profesional</h3>
+            </div>
+          </div>
+
+          <p class="text-white/80 leading-7">
+            Soy una persona sencilla y perfeccionista, polivalente, proactiva y resolutiva.
+            Creo firmemente en la importancia del trabajo en equipo para alcanzar objetivos.
+            Durante mi vida profesional he trabajado para crear redes de comunicación eficientes entre colaboradores
+            y generar identidad compartida dentro de las organizaciones.
+          </p>
+        </section>
+
+        <!-- STATS -->
+        <section class="grid sm:grid-cols-3 gap-4 fade-up">
+          <div class="glass rounded-[26px] p-5">
+            <p class="text-white/60 text-sm">Experiencia</p>
+            <p class="text-3xl font-semibold mt-1">+8</p>
+            <p class="text-white/70 text-sm mt-1">años en comunicación y contenido</p>
+          </div>
+          <div class="glass rounded-[26px] p-5">
+            <p class="text-white/60 text-sm">Enfoque</p>
+            <p class="text-3xl font-semibold mt-1">360º</p>
+            <p class="text-white/70 text-sm mt-1">estrategia, diseño y marketing</p>
+          </div>
+          <div class="glass rounded-[26px] p-5">
+            <p class="text-white/60 text-sm">Idiomas</p>
+            <p class="text-3xl font-semibold mt-1">3</p>
+            <p class="text-white/70 text-sm mt-1">castellano, catalán e inglés</p>
+          </div>
+        </section>
+
+        <!-- QUICK NAV -->
+        <section class="glass rounded-[30px] p-5 fade-up">
+          <div class="flex flex-wrap gap-3">
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition active" data-target="sobre">
+              Sobre mí
+            </button>
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition" data-target="experiencia">
+              Experiencia
+            </button>
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition" data-target="formacion">
+              Formación
+            </button>
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition" data-target="skills">
+              Habilidades
+            </button>
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition" data-target="idiomas">
+              Idiomas
+            </button>
+            <button class="nav-pill glass-soft rounded-2xl px-4 py-3 text-sm border border-white/10 transition" data-target="contacto">
+              Contacto
+            </button>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- MAIN SECTIONS -->
+    <main class="space-y-6">
+
+      <!-- EXPERIENCIA -->
+      <section id="experiencia" class="section active glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+            <i data-lucide="briefcase-business" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Trayectoria</p>
+            <h2 class="text-2xl sm:text-3xl font-semibold">Timeline profesional</h2>
+          </div>
+        </div>
+
+        <div class="relative pl-12">
+          <div class="timeline-line"></div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-[44px] top-4 w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+              <i data-lucide="building-2" class="w-4 h-4"></i>
+            </div>
+            <div class="glass-soft rounded-[26px] p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-semibold">Calaix de Cultura</h3>
+                  <p class="text-white/65">Responsable de Comunicación</p>
+                </div>
+                <span class="glass-soft rounded-full px-3 py-1 text-sm">2021 - Actualidad</span>
+              </div>
+              <ul class="mt-4 space-y-2 text-white/80">
+                <li>• Creación y seguimiento del plan de comunicación interno y externo.</li>
+                <li>• Digitalización de la empresa: IA, web e intranet.</li>
+                <li>• Agente de igualdad y compliance officer.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-[44px] top-4 w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+              <i data-lucide="megaphone" class="w-4 h-4"></i>
+            </div>
+            <div class="glass-soft rounded-[26px] p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-semibold">Nodes e-Com Group</h3>
+                  <p class="text-white/65">Community Manager y Responsable Marketing</p>
+                </div>
+                <span class="glass-soft rounded-full px-3 py-1 text-sm">2021</span>
+              </div>
+              <ul class="mt-4 space-y-2 text-white/80">
+                <li>• Creación de contenido gráfico y multimedia.</li>
+                <li>• Gestión de campañas digitales.</li>
+                <li>• Plan estratégico para cinco verticales internacionales.</li>
+                <li>• Análisis de reputación de marca y redes sociales.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-[44px] top-4 w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+              <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+            </div>
+            <div class="glass-soft rounded-[26px] p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-semibold">CS&amp;M</h3>
+                  <p class="text-white/65">Responsable Comunicación</p>
+                </div>
+                <span class="glass-soft rounded-full px-3 py-1 text-sm">2019 - 2020</span>
+              </div>
+              <ul class="mt-4 space-y-2 text-white/80">
+                <li>• Contenido gráfico y multimedia.</li>
+                <li>• Newsletter y seguimiento de resultados.</li>
+                <li>• Planes de comunicación.</li>
+                <li>• Gestión de RRSS y analítica web.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="relative mb-6">
+            <div class="absolute -left-[44px] top-4 w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+              <i data-lucide="newspaper" class="w-4 h-4"></i>
+            </div>
+            <div class="glass-soft rounded-[26px] p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-semibold">Itinere Serveis Educatius</h3>
+                  <p class="text-white/65">Community Manager</p>
+                </div>
+                <span class="glass-soft rounded-full px-3 py-1 text-sm">2018 - 2019</span>
+              </div>
+              <ul class="mt-4 space-y-2 text-white/80">
+                <li>• Contenido multimedia.</li>
+                <li>• Redacción de noticias, boletines y notas de prensa.</li>
+                <li>• Gestión de redes sociales y web.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="relative">
+            <div class="absolute -left-[44px] top-4 w-8 h-8 rounded-full bg-white/20 border border-white/30 flex items-center justify-center">
+              <i data-lucide="clapperboard" class="w-4 h-4"></i>
+            </div>
+            <div class="glass-soft rounded-[26px] p-5">
+              <div class="flex flex-wrap items-start justify-between gap-3">
+                <div>
+                  <h3 class="text-xl font-semibold">La Fábrica de la Tele</h3>
+                  <p class="text-white/65">Diseño gráfico y audiovisual</p>
+                </div>
+                <span class="glass-soft rounded-full px-3 py-1 text-sm">2017 - 2018</span>
+              </div>
+              <ul class="mt-4 space-y-2 text-white/80">
+                <li>• Edición audiovisual para televisión.</li>
+                <li>• Diseño de recursos gráficos.</li>
+                <li>• Adaptación de contenido para redes.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SOBRE -->
+      <section id="sobre" class="section glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+            <i data-lucide="user-round" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Identidad profesional</p>
+            <h2 class="text-2xl sm:text-3xl font-semibold">Sobre mí</h2>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <div class="glass-soft rounded-[28px] p-6">
+            <h3 class="text-xl font-semibold mb-3">Mi propuesta de valor</h3>
+            <p class="text-white/80 leading-7">
+              Combino estrategia, creatividad, comunicación corporativa y visión digital para construir mensajes sólidos,
+              equipos alineados y marcas con identidad.
+            </p>
+          </div>
+
+          <div class="glass-soft rounded-[28px] p-6">
+            <h3 class="text-xl font-semibold mb-3">Cómo trabajo</h3>
+            <p class="text-white/80 leading-7">
+              Con metodología, criterio visual, sensibilidad de marca y orientación a objetivos. Me adapto a distintos entornos,
+              liderando procesos de comunicación interna y externa con enfoque práctico.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FORMACION -->
+      <section id="formacion" class="section glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Base académica</p>
+            <h2 class="text-2xl sm:text-3xl font-semibold">Formación</h2>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5">
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="font-semibold text-lg">Máster en Diseño Gráfico</h3>
+            <p class="text-white/65 mt-1">Aula 10 · 2018 - 2019</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="font-semibold text-lg">Grado en Comunicación Audiovisual</h3>
+            <p class="text-white/65 mt-1">Universitat de Barcelona · 2013 - 2017</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="font-semibold text-lg">CFGS Producción de Medios Audiovisuales</h3>
+            <p class="text-white/65 mt-1">Escola de Mitjans Audiovisuals · 2009 - 2011</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="font-semibold text-lg">Analítica Web y Marketing Digital</h3>
+            <p class="text-white/65 mt-1">Adams Formación</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5 md:col-span-2">
+            <h3 class="font-semibold text-lg">Cursos complementarios</h3>
+            <p class="text-white/75 mt-1">Marketing Digital, Google Ads, Analytics, WordPress y Social Media.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- HABILIDADES -->
+      <section id="skills" class="section glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+            <i data-lucide="cpu" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Capacidades</p>
+            <h2 class="text-2xl sm:text-3xl font-semibold">Habilidades</h2>
+          </div>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-5 mb-6">
+          <div class="space-y-4">
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Photoshop</span><span>92%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="92%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Illustrator</span><span>88%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="88%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>After Effects</span><span>84%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="84%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Google Analytics</span><span>85%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="85%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Google Ads</span><span>80%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="80%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Hootsuite</span><span>78%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="78%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Metricool</span><span>82%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="82%"></div>
+              </div>
+            </div>
+
+            <div class="glass-soft rounded-[22px] p-4">
+              <div class="flex justify-between text-sm mb-2">
+                <span>Social Media Strategy</span><span>90%</span>
+              </div>
+              <div class="h-3 bg-white/10 rounded-full overflow-hidden">
+                <div class="skill-fill h-full rounded-full bg-gradient-to-r from-fuchsia-400 to-sky-400" data-width="90%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
+          <span class="glass-soft rounded-2xl p-4 flex items-center gap-3"><i data-lucide="palette" class="w-4 h-4"></i> Diseño visual</span>
+          <span class="glass-soft rounded-2xl p-4 flex items-center gap-3"><i data-lucide="badge-check" class="w-4 h-4"></i> Branding</span>
+          <span class="glass-soft rounded-2xl p-4 flex items-center gap-3"><i data-lucide="chart-no-axes-column" class="w-4 h-4"></i> Analítica</span>
+          <span class="glass-soft rounded-2xl p-4 flex items-center gap-3"><i data-lucide="messages-square" class="w-4 h-4"></i> Comunicación</span>
+        </div>
+      </section>
+
+      <!-- IDIOMAS -->
+      <section id="idiomas" class="section glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+            <i data-lucide="languages" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <p class="text-white/60 text-sm">Competencia lingüística</p>
+            <h2 class="text-2xl sm:text-3xl font-semibold">Idiomas</h2>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-5">
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="text-lg font-semibold">Castellano</h3>
+            <p class="text-white/70 mt-2">Bilingüe</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="text-lg font-semibold">Catalán</h3>
+            <p class="text-white/70 mt-2">Bilingüe</p>
+          </div>
+          <div class="glass-soft rounded-[26px] p-5">
+            <h3 class="text-lg font-semibold">Inglés</h3>
+            <p class="text-white/70 mt-2">Nivel medio</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTO -->
+      <section id="contacto" class="section glass rounded-[34px] p-6 sm:p-8 fade-up">
+        <div class="grid lg:grid-cols-[1.1fr_.9fr] gap-6 items-start">
+          <div>
+            <div class="flex items-center gap-3 mb-6">
+              <div class="w-12 h-12 rounded-2xl glass-soft flex items-center justify-center">
+                <i data-lucide="contact-round" class="w-6 h-6"></i>
+              </div>
+              <div>
+                <p class="text-white/60 text-sm">Conecta conmigo</p>
+                <h2 class="text-2xl sm:text-3xl font-semibold">Contacto</h2>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <a href="mailto:kevin.roldan.rodriguez@gmail.com" class="glass-soft rounded-[24px] p-5 flex items-center gap-4 hover:bg-white/15 transition">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <i data-lucide="mail" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Email</p>
+                  <p class="font-medium">kevin.roldan.rodriguez@gmail.com</p>
+                </div>
+              </a>
+
+              <a href="tel:+34627209050" class="glass-soft rounded-[24px] p-5 flex items-center gap-4 hover:bg-white/15 transition">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <i data-lucide="phone" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">Teléfono</p>
+                  <p class="font-medium">627 209 050</p>
+                </div>
+              </a>
+
+              <a href="https://linkedin.com" target="_blank" class="glass-soft rounded-[24px] p-5 flex items-center gap-4 hover:bg-white/15 transition">
+                <div class="w-12 h-12 rounded-2xl bg-white/10 flex items-center justify-center">
+                  <i data-lucide="linkedin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <p class="text-white/60 text-sm">LinkedIn</p>
+                  <p class="font-medium">linkedin.com</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="glass-soft rounded-[30px] p-6 text-center qr-box">
+            <div class="w-14 h-14 mx-auto rounded-2xl bg-white/10 flex items-center justify-center mb-4">
+              <i data-lucide="qr-code" class="w-7 h-7"></i>
+            </div>
+            <h3 class="text-xl font-semibold">QR para enviar tu CV</h3>
+            <p class="text-white/70 mt-2 mb-4">
+              Escanéalo para abrir esta página o contactar rápidamente.
+            </p>
+            <div id="qrcode" class="mb-4"></div>
+            <p class="text-xs text-white/55">
+              Si publicas este HTML en una URL, el QR apuntará automáticamente a esa dirección.
+            </p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MOBILE APP NAV -->
+  <nav class="mobile-bottom-nav fixed bottom-4 left-4 right-4 z-50 glass rounded-[28px] p-2">
+    <div class="grid grid-cols-6 gap-2 text-center text-[11px] sm:text-xs">
+      <button class="bottom-tab active rounded-2xl py-3 px-2 transition" data-target="sobre">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="user-round" class="w-4 h-4"></i>
+          <span>Sobre mí</span>
+        </div>
+      </button>
+
+      <button class="bottom-tab rounded-2xl py-3 px-2 transition" data-target="experiencia">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="briefcase-business" class="w-4 h-4"></i>
+          <span>Experiencia</span>
+        </div>
+      </button>
+
+      <button class="bottom-tab rounded-2xl py-3 px-2 transition" data-target="formacion">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          <span>Formación</span>
+        </div>
+      </button>
+
+      <button class="bottom-tab rounded-2xl py-3 px-2 transition" data-target="skills">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="cpu" class="w-4 h-4"></i>
+          <span>Skills</span>
+        </div>
+      </button>
+
+      <button class="bottom-tab rounded-2xl py-3 px-2 transition" data-target="idiomas">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="languages" class="w-4 h-4"></i>
+          <span>Idiomas</span>
+        </div>
+      </button>
+
+      <button class="bottom-tab rounded-2xl py-3 px-2 transition" data-target="contacto">
+        <div class="flex flex-col items-center gap-1">
+          <i data-lucide="send" class="w-4 h-4"></i>
+          <span>Contacto</span>
+        </div>
+      </button>
+    </div>
+  </nav>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <script>
+    lucide.createIcons();
+
+    const sections = document.querySelectorAll('.section');
+    const navPills = document.querySelectorAll('.nav-pill');
+    const bottomTabs = document.querySelectorAll('.bottom-tab');
+
+    function setActiveButtons(id){
+      navPills.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === id);
+      });
+
+      bottomTabs.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.target === id);
+      });
+    }
+
+    function showSection(id){
+      sections.forEach(section => section.classList.remove('active'));
+      const activeSection = document.getElementById(id);
+      if(activeSection){
+        activeSection.classList.add('active');
+        activeSection.scrollIntoView({ behavior:'smooth', block:'start' });
+      }
+      setActiveButtons(id);
+
+      if(id === 'skills'){
+        animateSkills();
+      }
+    }
+
+    navPills.forEach(btn => {
+      btn.addEventListener('click', () => showSection(btn.dataset.target));
+    });
+
+    bottomTabs.forEach(btn => {
+      btn.addEventListener('click', () => showSection(btn.dataset.target));
+    });
+
+    document.querySelectorAll('.nav-go').forEach(btn => {
+      btn.addEventListener('click', () => {});
+    });
+
+    function animateSkills(){
+      const fills = document.querySelectorAll('#skills .skill-fill');
+      fills.forEach(fill => {
+        fill.style.width = '0';
+      });
+
+      setTimeout(() => {
+        fills.forEach(fill => {
+          fill.style.width = fill.dataset.width;
+        });
+      }, 180);
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting){
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: .12 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    function generateQR(){
+      const qrContainer = document.getElementById('qrcode');
+      qrContainer.innerHTML = '';
+
+      const currentURL = window.location.href;
+      const isLocal = currentURL.startsWith('file:');
+
+      const qrValue = isLocal
+        ? 'mailto:kevin.roldan.rodriguez@gmail.com?subject=He%20visto%20tu%20CV'
+        : currentURL;
+
+      new QRCode(qrContainer, {
+        text: qrValue,
+        width: 180,
+        height: 180,
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+
+    function detectPhoto(){
+      const hero = document.getElementById('heroPhoto');
+      const img = new Image();
+      img.src = 'kevin-photo.jpg';
+      img.onload = () => hero.classList.remove('no-photo');
+      img.onerror = () => hero.classList.add('no-photo');
+    }
+
+    window.addEventListener('load', () => {
+      detectPhoto();
+      generateQR();
+      showSection('experiencia');
+      animateSkills();
+    });
+  </script>
+</body>
+</html>
